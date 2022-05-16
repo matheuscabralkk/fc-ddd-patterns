@@ -249,7 +249,6 @@ describe("Order repository test", () => {
         2
     );
 
-    const ordemItem3Quantity = 2
     const ordemItem3 = new OrderItem(
         "3",
         product.name,
