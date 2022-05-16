@@ -86,5 +86,18 @@ describe('E2E test for customer', () => {
         expect(response3.body.customers[1]).toHaveProperty('address');
         expect(response3.body.customers[1].address).toHaveProperty('street', '1234 Main St');
         expect(response3.body.customers[1].address).toHaveProperty('city', 'Anytown 2');
+
+        const listResponseXML = await request(app).get('/customer').set('Accept', 'application/xml');
+
+        expect(listResponseXML.status).toBe(200);
+        expect(listResponseXML.text).toContain(`<?xml version="1.0" encoding="UTF-8"?>`);
+        expect(listResponseXML.text).toContain(`<customers>`);
+        expect(listResponseXML.text).toContain(`<customer>`);
+        expect(listResponseXML.text).toContain(`<name>John Doe</name>`);
+        expect(listResponseXML.text).toContain(`<address>`);
+        expect(listResponseXML.text).toContain(`<street>123 Main St</street>`);
+        expect(listResponseXML.text).toContain(`<city>Anytown</city>`);
+        expect(listResponseXML.text).toContain(`<number>123</number>`);
+        expect(listResponseXML.text).toContain(`<zip>12345</zip>`);
     })
 })
