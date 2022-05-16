@@ -47,14 +47,12 @@ describe("Order repository test", () => {
     const product = new Product("123", "Product 1", 10);
     await productRepository.create(product);
 
-    const orderItemQuantity = 2;
     const ordemItem = new OrderItem(
         "1",
         product.name,
         product.price,
-        product.price * orderItemQuantity,
         product.id,
-        orderItemQuantity
+        2
     );
 
     const order = new Order("123", "123", [ordemItem]);
@@ -76,10 +74,9 @@ describe("Order repository test", () => {
           id: ordemItem.id,
           name: ordemItem.name,
           price: ordemItem.price,
-          totalPrice: ordemItem.totalPrice,
           quantity: ordemItem.quantity,
-          order_id: "123",
-          product_id: "123",
+          order_id: order.id,
+          product_id: product.id,
         },
       ],
     });
@@ -95,14 +92,12 @@ describe("Order repository test", () => {
     const productRepository = new ProductRepository();
     await productRepository.create(product);
 
-    const orderItemQuantity = 2;
     const ordemItem = new OrderItem(
         "1",
         product.name,
         product.price,
-        product.price * orderItemQuantity,
         product.id,
-        orderItemQuantity
+        2
     );
 
     const order = new Order("123", "123", [ordemItem]);
@@ -124,7 +119,6 @@ describe("Order repository test", () => {
           id: ordemItem.id,
           name: ordemItem.name,
           price: ordemItem.price,
-          totalPrice: ordemItem.totalPrice,
           quantity: ordemItem.quantity,
           order_id: "123",
           product_id: "123",
@@ -142,14 +136,12 @@ describe("Order repository test", () => {
     const product2 = new Product("321", "Product 2", 50);
     await productRepository.create(product2);
 
-    const orderItem2Quantity = 3;
     const ordemItem2 = new OrderItem(
         "2",
         product2.name,
         product2.price,
-        product2.price * orderItem2Quantity,
         product2.id,
-        orderItem2Quantity
+        3
     );
     order.changeItems([ordemItem2]);
 
@@ -174,7 +166,6 @@ describe("Order repository test", () => {
           id: ordemItem2.id,
           name: ordemItem2.name,
           price: ordemItem2.price,
-          totalPrice: ordemItem2.totalPrice,
           quantity: ordemItem2.quantity,
           order_id: "123",
           product_id: product2.id,
@@ -194,14 +185,12 @@ describe("Order repository test", () => {
     const productRepository = new ProductRepository();
     await productRepository.create(product);
 
-    const orderItemQuantity = 2;
     const ordemItem = new OrderItem(
         "1",
         product.name,
         product.price,
-        product.price * orderItemQuantity,
         product.id,
-        orderItemQuantity
+        2
     );
 
     const order = new Order("13123123", "123", [ordemItem]);
@@ -225,7 +214,6 @@ describe("Order repository test", () => {
           id: foundOrder.items[0].id,
           name: foundOrder.items[0].name,
           price: foundOrder.items[0].price,
-          totalPrice: foundOrder.items[0].totalPrice,
           quantity: foundOrder.items[0].quantity,
           order_id: foundOrder.id,
           product_id: foundOrder.items[0].productId,
@@ -245,24 +233,20 @@ describe("Order repository test", () => {
     const productRepository = new ProductRepository();
     await productRepository.create(product);
 
-    const ordemItem1Quantity = 2;
     const ordemItem1 = new OrderItem(
         "1",
         product.name,
         product.price,
-        product.price * ordemItem1Quantity,
         product.id,
-        ordemItem1Quantity
+        2
     );
 
-    const ordemItem2Quantity = 2
     const ordemItem2 = new OrderItem(
         "2",
         product.name,
         product.price,
-        product.price * ordemItem2Quantity,
         product.id,
-        ordemItem2Quantity
+        2
     );
 
     const ordemItem3Quantity = 2
@@ -270,9 +254,8 @@ describe("Order repository test", () => {
         "3",
         product.name,
         product.price,
-        product.price * ordemItem3Quantity,
         product.id,
-        ordemItem3Quantity
+        2
     );
 
     const order1 = new Order("1", "123", [ordemItem1]);
@@ -299,7 +282,6 @@ describe("Order repository test", () => {
           id: foundOrder1.items[0].id,
           name: foundOrder1.items[0].name,
           price: foundOrder1.items[0].price,
-          totalPrice: foundOrder1.items[0].totalPrice,
           quantity: foundOrder1.items[0].quantity,
           order_id: foundOrder1.id,
           product_id: foundOrder1.items[0].productId,
@@ -318,7 +300,6 @@ describe("Order repository test", () => {
           id: foundOrder2.items[0].id,
           name: foundOrder2.items[0].name,
           price: foundOrder2.items[0].price,
-          totalPrice: foundOrder2.items[0].totalPrice,
           quantity: foundOrder2.items[0].quantity,
           order_id: foundOrder2.id,
           product_id: foundOrder2.items[0].productId,
@@ -337,7 +318,6 @@ describe("Order repository test", () => {
           id: foundOrder3.items[0].id,
           name: foundOrder3.items[0].name,
           price: foundOrder3.items[0].price,
-          totalPrice: foundOrder3.items[0].totalPrice,
           quantity: foundOrder3.items[0].quantity,
           order_id: foundOrder3.id,
           product_id: foundOrder3.items[0].productId,

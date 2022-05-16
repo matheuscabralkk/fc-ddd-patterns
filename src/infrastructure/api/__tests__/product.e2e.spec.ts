@@ -16,6 +16,7 @@ describe('E2E test for product', () => {
             .send({
                     name: 'My Product Name',
                     price: 100,
+                    type: 'a',
                 }
             );
         expect(response.status).toBe(200);
@@ -40,6 +41,7 @@ describe('E2E test for product', () => {
             .send({
                     name: 'My Product Name',
                     price: 100,
+                    type: 'a',
                 }
             );
         const response2 = await request(app)
@@ -47,6 +49,7 @@ describe('E2E test for product', () => {
             .send({
                     name: 'My Product Name 2',
                     price: 200,
+                    type: 'a',
                 }
             );
 

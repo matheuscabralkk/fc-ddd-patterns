@@ -2,7 +2,8 @@ import CreateProductUseCase from './create.product.usecase';
 
 const input = {
     name: 'product1',
-    price: 123
+    price: 123,
+    type: 'a',
 }
 
 const MockRepository = () => {

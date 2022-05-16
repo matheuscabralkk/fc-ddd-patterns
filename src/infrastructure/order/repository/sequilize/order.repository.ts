@@ -7,15 +7,14 @@ import OrderItem from '../../../../domain/checkout/entity/order_item';
 export default class OrderRepository implements OrderRepositoryInterface {
     async find(id: string): Promise<Order> {
         const orderModel = await OrderModel.findOne({ where: { id }, include: ["items"] });
-        const orderItemModel = orderModel.items.map(item => new OrderItem(item.id, item.name, item.price, item.totalPrice, item.product_id, item.quantity));
-        const order = new Order(orderModel.id, orderModel.customer_id, orderItemModel)
-        return order;
+        const orderItemModel = orderModel.items.map(item => new OrderItem(item.id, item.name, item.price / item.quantity, item.product_id, item.quantity));
+        return new Order(orderModel.id, orderModel.customer_id, orderItemModel)
     }
 
     async findAll(): Promise<Order[]> {
         const orderModels = await OrderModel.findAll();
         return orderModels.map((orderModel) => {
-                const orderItemModel = orderModel.items.map(item => new OrderItem(item.id, item.name, item.price, item.totalPrice, item.product_id, item.quantity));
+                const orderItemModel = orderModel.items.map(item => new OrderItem(item.id, item.name, item.price / item.quantity, item.product_id, item.quantity));
                 return new Order(orderModel.id, orderModel.customer_id, orderItemModel);
             }
         );
@@ -39,12 +38,11 @@ export default class OrderRepository implements OrderRepositoryInterface {
         await Promise.all(destroyOrderItemsPromise);
 
         const addOrderItemsPromise = entity.items.map(item => {
-            const { id, name, price, productId, quantity, totalPrice } = item;
+            const { id, name, price, productId, quantity } = item;
             return OrderItemModel.create({
                 id,
                 name,
                 price,
-                totalPrice,
                 product_id: productId,
                 quantity,
                 order_id: entity.id
@@ -74,7 +72,6 @@ export default class OrderRepository implements OrderRepositoryInterface {
                     id: item.id,
                     name: item.name,
                     price: item.price,
-                    totalPrice: item.totalPrice,
                     product_id: item.productId,
                     quantity: item.quantity,
                 })),
